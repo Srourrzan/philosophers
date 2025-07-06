@@ -6,7 +6,7 @@
 /*   By: rsrour <rsrour@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 14:10:15 by rsrour            #+#    #+#             */
-/*   Updated: 2025/07/06 15:10:05 by rsrour           ###   ########.fr       */
+/*   Updated: 2025/07/06 15:41:54 by rsrour           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ typedef struct s_table
 
 //stdutils.c file functions
 int	ft_indicate_error(const char *message);
+int	ft_atoi(const char *str);
+int	ft_is_digit(int c);
 
 //parsing.c file functions
 int ft_parse_args(int argc, char **argv);

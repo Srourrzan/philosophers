@@ -1,7 +1,7 @@
 # _*_ MakeFile _*_
 
 NAME		= philo
-SRC = main.c parsing.c philosopher.c std_utils.c
+SRCS = main.c parsing.c philosopher.c std_utils.c
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
@@ -13,6 +13,10 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 			$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -pthread
+			
+$(OBJ_DIR)/%.o: %.c
+			@mkdir -p $(OBJ_DIR)
+			$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 			$(RM) $(OBJS)
