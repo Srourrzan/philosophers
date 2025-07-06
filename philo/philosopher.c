@@ -6,7 +6,7 @@
 /*   By: rsrour <rsrour@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 10:45:40 by rsrour            #+#    #+#             */
-/*   Updated: 2025/07/06 15:50:56 by rsrour           ###   ########.fr       */
+/*   Updated: 2025/07/06 17:01:28 by rsrour           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,5 @@ t_philosopher *ft_init_philo()
     philo->left_fork = NULL; // Will be set when linked with other philosophers
     philo->right_fork = NULL; // Will be set when linked with other philosophers
     philo->next = NULL; // Initialize next pointer to NULL
-    pthread_mutex_init(&philo->fork, NULL); // Initialize the fork mutex
     return (philo);
 }

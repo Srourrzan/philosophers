@@ -6,7 +6,7 @@
 /*   By: rsrour <rsrour@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 14:10:15 by rsrour            #+#    #+#             */
-/*   Updated: 2025/07/06 16:39:26 by rsrour           ###   ########.fr       */
+/*   Updated: 2025/07/06 17:04:43 by rsrour           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,12 @@ typedef struct s_table
     pthread_mutex_t    simulation_mutex; // Mutex for synchronizing simulation (protecting shared state variables)
 }	t_table;
 
+#ifdef VIZ_MODE
+# define VIZ 1
+#else
+# define VIZ 0
+#endif
+
 //stdutils.c file functions
 int	ft_indicate_error(const char *message);
 int	ft_atoi(const char *str);
@@ -62,5 +68,8 @@ int	ft_is_digit(int c);
 
 //parsing.c file functions
 int ft_parse_args(int argc, char **argv);
+
+//table.c file functions
+int ft_init_table(t_table *table, int argc, char **argv);
 
 #endif

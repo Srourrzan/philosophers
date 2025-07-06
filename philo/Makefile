@@ -9,6 +9,10 @@ CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -g
 RM			= rm -f
 
+ifdef VIZ
+	CFLAGS += -DVIZ_MODE
+else
+
 all: $(NAME)
 
 $(NAME): $(OBJS)
