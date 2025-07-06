@@ -6,7 +6,7 @@
 /*   By: rsrour <rsrour@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 10:05:12 by rsrour            #+#    #+#             */
-/*   Updated: 2025/07/06 22:31:56 by rsrour           ###   ########.fr       */
+/*   Updated: 2025/07/06 23:36:44 by rsrour           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 int	ft_indicate_error(const char *message)
 {
-    if (message)
-        printf("%s\n", message);
-    return (-1);
+	if (message)
+		printf("%s\n", message);
+	return (-1);
 }
 
 int	ft_is_digit(int c)
 {
-    return (c >= '0' && c <= '9');
+	return (c >= '0' && c <= '9');
 }
 
 int	ft_atoi(const char *str)
 {
-	int				i;
-	unsigned int	result;
-	int				negative;
+	int	i;
+	int	result;
+	int	negative;
 
 	i = 0;
 	result = 0;
@@ -49,20 +49,20 @@ int	ft_atoi(const char *str)
 	return ((int)result * negative);
 }
 
-long ft_time_interval(t_table *table)
+long	ft_time_interval(t_table *table)
 {
-	struct timeval tv;
-    long            now;
+	struct timeval	tv;
+	long			now;
 
 	gettimeofday(&tv, NULL);
-    now = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	now = tv.tv_sec * 1000 + tv.tv_usec / 1000;
 	return (now - table->start_time);
 }
 
-void ft_clean_table(t_table *table)
+void	ft_clean_table(t_table *table)
 {
-	if (table->philosophers)
-		free(table->philosophers);
+	if (table->philos)
+		free(table->philos);
 	if (table->forks)
 		free(table->forks);
 }

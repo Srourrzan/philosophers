@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   ft_print.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rsrour <rsrour@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/06 10:12:43 by rsrour            #+#    #+#             */
-/*   Updated: 2025/07/06 23:26:16 by rsrour           ###   ########.fr       */
+/*   Created: 2025/07/06 23:33:29 by rsrour            #+#    #+#             */
+/*   Updated: 2025/07/06 23:50:18 by rsrour           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_validate_arg(char *arg)
+void	ft_print_routine(t_philo *philo, char *str)
 {
-	int	atoi_result;
-	int	i;
-
-	if (!arg || !*arg)
-		return (-1);
-	i = 0;
-	atoi_result = 0;
-	while (arg[i] != '\0')
-	{
-		if (!ft_is_digit(arg[i]))
-			return (-1);
-		i++;
-	}
-	atoi_result = ft_atoi(arg);
-	if (atoi_result < 0)
-		return (-1);
-	return (atoi_result);
+	if (ft_is_dead(philo))
+		return ;
+	pthread_mutex_lock(&philo->table->print_lock);
+	printf("%ld %d %s\n", ft_time_interval(philo->table), philo->id, str);
+	pthread_mutex_unlock(&philo->table->print_lock);
 }

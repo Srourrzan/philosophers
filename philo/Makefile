@@ -8,12 +8,13 @@ SRCS = main.c 			\
 		simulation.c 	\
 		table.c 		\
 		monitor.c 		\
+		ft_print.c		\
 
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=thread
+CFLAGS		= -Wall -Wextra -Werror -g #-fsanitize=thread
 RM			= rm -f
 
 all: $(NAME)
