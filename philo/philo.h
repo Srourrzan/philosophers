@@ -6,7 +6,7 @@
 /*   By: rsrour <rsrour@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 14:10:15 by rsrour            #+#    #+#             */
-/*   Updated: 2025/07/06 15:41:54 by rsrour           ###   ########.fr       */
+/*   Updated: 2025/07/06 16:39:26 by rsrour           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,22 @@
 # include <sys/time.h>
 # include <unistd.h>
 
+typedef struct s_forks
+{
+    pthread_mutex_t	*forks;
+    int				num_forks;
+}	t_forks;
+
 typedef struct s_philosopher
 {
     int				id;
     int				times_eaten;
-    pthread_mutex_t	fork;
-    pthread_mutex_t	*left_fork;
-    pthread_mutex_t	*right_fork;
+    long long        last_eating_time;
+    t_forks        *left_fork;
+    t_forks        *right_fork;
+    pthread_mutex_t    eating_mutex;
     struct s_philosopher *next;
+    pthread_t           thread;
 }	t_philosopher;
 
 typedef struct s_table
@@ -38,8 +46,13 @@ typedef struct s_table
     int				time_to_eat;
     int				time_to_sleep;
     int				num_times_must_eat;
-    t_philosopher	*philosophers;
-    pthread_mutex_t	print_mutex;
+    int             thread_status; //Flag for thread synchronization
+    int             simulation_over; // flag to indicate if the simulation is over
+    long long        simulation_time; // flag to indicate the simulation start time
+    t_philosopher	*philosophers; // list of philosophers
+    t_forks			    *forks; // list of forks
+    pthread_mutex_t	    print_mutex; // Mutex for synchronizing output
+    pthread_mutex_t    simulation_mutex; // Mutex for synchronizing simulation (protecting shared state variables)
 }	t_table;
 
 //stdutils.c file functions

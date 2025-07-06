@@ -6,7 +6,7 @@
 /*   By: rsrour <rsrour@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 14:10:17 by rsrour            #+#    #+#             */
-/*   Updated: 2025/07/06 15:51:35 by rsrour           ###   ########.fr       */
+/*   Updated: 2025/07/06 16:25:25 by rsrour           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,19 @@
 
 int main(int argc, char **argv)
 {
-    if (ft_parse_args(argc, argv) < 0)
-        return (-1);
+    t_table table;
+    
+    if (argc < 5 || argc > 6)
+    {
+        printf("Error: Invalid number of arguments\n");
+        return (EXIT_FAILURE);
+    }
+    memset(&table, 0, sizeof(t_table));
+    if (ft_init_table(&table, argc, argv) < 0)
+    {
+        printf("Error: Failed to initialize table\n");
+        return (EXIT_FAILURE);
+    }
     printf("valid arguments\n");
     return (EXIT_SUCCESS);    
 }

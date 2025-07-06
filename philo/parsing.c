@@ -6,7 +6,7 @@
 /*   By: rsrour <rsrour@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 10:12:43 by rsrour            #+#    #+#             */
-/*   Updated: 2025/07/06 15:50:02 by rsrour           ###   ########.fr       */
+/*   Updated: 2025/07/06 16:03:48 by rsrour           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int ft_parse_args(int argc, char **argv)
 	int time_to_sleep;
 	int num_times_must_eat;
 	
-	if (argc < 5 || argc > 6)
-		return (ft_indicate_error("Error: Invalid number of arguments"));
+	if (!argv || !*argv)
+		return (ft_indicate_error("Error: No arguments provided"));
 	// Convert arguments to integers and check for validity
 	num_times_must_eat = -1; // Default value for optional argument
 	num_philosophers = ft_validate_arg(argv[1]);
