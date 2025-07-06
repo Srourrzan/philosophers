@@ -6,7 +6,7 @@
 /*   By: rsrour <rsrour@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 14:10:17 by rsrour            #+#    #+#             */
-/*   Updated: 2025/07/06 17:00:23 by rsrour           ###   ########.fr       */
+/*   Updated: 2025/07/06 22:29:34 by rsrour           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,17 @@ int main(int argc, char **argv)
     if (ft_init_table(&table, argc, argv) < 0)
         return (ft_indicate_error("Error: Failed to initialize table"));
     printf("Table initialized successfully\n");
-    if (ft_create_thread(table) < 0)
+    if (ft_create_thread(&table) < 0)
     {
-        free(table.philosophers);
-        pthread_mutex_destroy(&table.print_mutex);
-        pthread_mutex_destroy(&table.simulation_mutex);
-        return (ft_indicate_error("Error: Failed to create threads"));
+        return (ft_indicate_error("Error: Failed to create threads")); // handle err
     }
-    printf("end\n");
+    ft_monitor(&table);
+    int i = 0;
+    while (i < table.num_philosophers)
+    {
+        pthread_join(table.philosophers[i].thread, NULL);
+        i++;
+    }
+    ft_clean_table(&table);
     return (EXIT_SUCCESS);    
 }

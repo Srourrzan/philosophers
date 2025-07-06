@@ -6,7 +6,7 @@
 /*   By: rsrour <rsrour@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 10:05:12 by rsrour            #+#    #+#             */
-/*   Updated: 2025/07/06 15:41:35 by rsrour           ###   ########.fr       */
+/*   Updated: 2025/07/06 22:31:56 by rsrour           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,22 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return ((int)result * negative);
+}
+
+long ft_time_interval(t_table *table)
+{
+	struct timeval tv;
+    long            now;
+
+	gettimeofday(&tv, NULL);
+    now = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	return (now - table->start_time);
+}
+
+void ft_clean_table(t_table *table)
+{
+	if (table->philosophers)
+		free(table->philosophers);
+	if (table->forks)
+		free(table->forks);
 }

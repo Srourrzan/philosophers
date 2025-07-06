@@ -1,17 +1,20 @@
 # _*_ MakeFile _*_
 
 NAME		= philo
-SRCS = main.c parsing.c philosopher.c std_utils.c
+SRCS = main.c 			\
+		parsing.c 		\
+		philosopher.c 	\
+		std_utils.c 	\
+		simulation.c 	\
+		table.c 		\
+		monitor.c 		\
+
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -g
+CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=thread
 RM			= rm -f
-
-ifdef VIZ
-	CFLAGS += -DVIZ_MODE
-else
 
 all: $(NAME)
 
