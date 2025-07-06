@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rsrour <rsrour@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/06 10:05:48 by rsrour            #+#    #+#             */
-/*   Updated: 2025/07/06 10:40:41 by rsrour           ###   ########.fr       */
+/*   Created: 2025/07/06 14:10:15 by rsrour            #+#    #+#             */
+/*   Updated: 2025/07/06 15:10:05 by rsrour           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHERS_H
-# define PHILOSOPHERS_H
+#ifndef PHILO_H
+#define PHILO_H
 
-# include <stdlib.h>
+# include <limits.h>
 # include <pthread.h>
 # include <stdio.h>
-# include <unistd.h>
+# include <stdlib.h>
+# include <string.h>
 # include <sys/time.h>
-# include <limits.h>
+# include <unistd.h>
 
 typedef struct s_philosopher
 {
