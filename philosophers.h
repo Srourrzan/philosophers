@@ -6,7 +6,7 @@
 /*   By: rsrour <rsrour@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 10:05:48 by rsrour            #+#    #+#             */
-/*   Updated: 2025/07/06 10:16:30 by rsrour           ###   ########.fr       */
+/*   Updated: 2025/07/06 10:40:41 by rsrour           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,31 @@
 # include <sys/time.h>
 # include <limits.h>
 
+typedef struct s_philosopher
+{
+    int				id;
+    int				times_eaten;
+    pthread_mutex_t	fork;
+    pthread_mutex_t	*left_fork;
+    pthread_mutex_t	*right_fork;
+    struct s_philosopher *next;
+}	t_philosopher;
+
+typedef struct s_table
+{
+    int				num_philosophers;
+    int				time_to_die;
+    int				time_to_eat;
+    int				time_to_sleep;
+    int				num_times_must_eat;
+    t_philosopher	*philosophers;
+    pthread_mutex_t	print_mutex;
+}	t_table;
 
 //stdutils.c file functions
 int	ft_indicate_error(const char *message);
 
 //parsing.c file functions
+int ft_parse_args(int argc, char **argv);
 
 #endif
