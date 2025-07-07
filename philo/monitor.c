@@ -6,7 +6,7 @@
 /*   By: rsrour <rsrour@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 21:00:46 by rsrour            #+#    #+#             */
-/*   Updated: 2025/07/07 00:00:26 by rsrour           ###   ########.fr       */
+/*   Updated: 2025/07/07 13:12:19 by rsrour           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ static int	check_starving(t_philo *philo)
 	pthread_mutex_unlock(&philo->eating_time_lock);
 	if (is_dead)
 	{
+		pthread_mutex_lock(&philo->table->print_lock);
 		pthread_mutex_lock(&philo->table->status_lock);
 		philo->table->status = 0;
 		pthread_mutex_unlock(&philo->table->status_lock);
-		pthread_mutex_lock(&philo->table->print_lock);
+		usleep(50);
 		printf("%ld %d %s\n", ft_time_interval(philo->table),
 			philo->id, "died");
 		pthread_mutex_unlock(&philo->table->print_lock);
@@ -51,7 +52,7 @@ void	ft_monitor(t_table *table)
 	int	i;
 	int	nb_full;
 
-	while (1)
+	while (!ft_is_dead(table))
 	{
 		i = 0;
 		nb_full = 0;
@@ -61,8 +62,8 @@ void	ft_monitor(t_table *table)
 				return ;
 			if (table->num_times_must_eat != -1)
 				nb_full += check_full(&table->philos[i]);
-			usleep(74);
 			i++;
+			usleep(42);
 		}
 		if (nb_full == table->nb_philo)
 		{
@@ -71,5 +72,6 @@ void	ft_monitor(t_table *table)
 			pthread_mutex_unlock(&table->status_lock);
 			return ;
 		}
+		usleep(43);
 	}
 }

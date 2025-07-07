@@ -9,12 +9,13 @@ SRCS = main.c 			\
 		table.c 		\
 		monitor.c 		\
 		ft_print.c		\
+		sleep_mang.c	\
 
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -g #-fsanitize=thread
+CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
 RM			= rm -f
 
 all: $(NAME)
