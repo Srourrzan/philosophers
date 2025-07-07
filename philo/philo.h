@@ -6,7 +6,7 @@
 /*   By: rsrour <rsrour@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 14:10:15 by rsrour            #+#    #+#             */
-/*   Updated: 2025/07/07 13:08:14 by rsrour           ###   ########.fr       */
+/*   Updated: 2025/07/07 14:27:10 by rsrour           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,12 @@ struct s_table
 	int				time_to_sleep;
 	int				num_times_must_eat;
 	int				status;
+	int				threads_ready;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_lock;
 	pthread_mutex_t	status_lock;
+	pthread_mutex_t	threads_ready_lock;
 	long			start_time;
 };
 
@@ -59,13 +61,13 @@ int				ft_is_digit(int c);
 long			ft_time_interval(t_table *table);
 void			*ft_routine(void *philosopher);
 int				ft_validate_arg(char *arg);
-void 			*ft_1_philo(void *philosopher);
 int				ft_init_table(t_table *table, int argc, char **argv);
 int				ft_is_dead(t_table *table);
 int				ft_create_thread(t_table *table);
 t_philo			*ft_init_philo(t_table *table);
 void			ft_monitor(t_table *table);
 void			ft_print_routine(t_philo *philo, char *str);
-void    		ft_sleep_mang(t_table *table, long long ms);
+void			ft_sleep_mang(t_table *table, long long ms);
+void			ft_steady_ready_go(t_table *table);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rsrour <rsrour@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 17:00:43 by rsrour            #+#    #+#             */
-/*   Updated: 2025/07/07 13:14:29 by rsrour           ###   ########.fr       */
+/*   Updated: 2025/07/07 14:37:16 by rsrour           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,14 @@ int	left_a_forks(t_philo *philo, int l, int r)
 
 int	eating(t_philo *philo)
 {
+	if (philo->left_fork == NULL)
+		return (left_a_forks(philo, 1, 0));
 	pthread_mutex_lock(philo->left_fork);
 	if (ft_is_dead(philo->table))
 		return (left_a_forks(philo, 1, 0));
 	ft_print_routine(philo, "has taken a fork");
+	if (philo->right_fork == NULL)
+		return (left_a_forks(philo, 1, 0));
 	pthread_mutex_lock(philo->right_fork);
 	if (ft_is_dead(philo->table))
 		return (left_a_forks(philo, 1, 1));
@@ -60,13 +64,13 @@ void	*ft_routine(void *philosopher)
 	t_philo	*philo;
 
 	philo = (t_philo *)philosopher;
-	
+	ft_steady_ready_go(philo->table);
 	if (philo->id & 1)
-		usleep(41);
+		usleep(753);
 	while (1)
 	{
 		if (philo->id & 1)
-			usleep(1000);
+			usleep(357);
 		ft_print_routine(philo, "is thinking");
 		if (eating(philo))
 			break ;

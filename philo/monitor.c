@@ -6,7 +6,7 @@
 /*   By: rsrour <rsrour@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 21:00:46 by rsrour            #+#    #+#             */
-/*   Updated: 2025/07/07 13:12:19 by rsrour           ###   ########.fr       */
+/*   Updated: 2025/07/07 14:34:35 by rsrour           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	ft_monitor(t_table *table)
 			if (table->num_times_must_eat != -1)
 				nb_full += check_full(&table->philos[i]);
 			i++;
-			usleep(42);
 		}
 		if (nb_full == table->nb_philo)
 		{
@@ -72,6 +71,5 @@ void	ft_monitor(t_table *table)
 			pthread_mutex_unlock(&table->status_lock);
 			return ;
 		}
-		usleep(43);
 	}
 }

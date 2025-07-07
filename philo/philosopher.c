@@ -6,11 +6,30 @@
 /*   By: rsrour <rsrour@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 10:45:40 by rsrour            #+#    #+#             */
-/*   Updated: 2025/07/07 12:54:02 by rsrour           ###   ########.fr       */
+/*   Updated: 2025/07/07 14:37:37 by rsrour           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static void	set_forks(t_table *table, t_philo *philo, int i)
+{
+	if (i == 0)
+	{
+		philo[i].left_fork = &table->forks[i];
+		philo[i].right_fork = NULL;
+	}
+	else if ((i & 1) == 0)
+	{
+		philo[i].left_fork = &table->forks[(i + 1) % table->nb_philo];
+		philo[i].right_fork = &table->forks[i];
+	}
+	else
+	{
+		philo[i].left_fork = &table->forks[i];
+		philo[i].right_fork = &table->forks[(i + 1) % table->nb_philo];
+	}
+}
 
 t_philo	*ft_init_philo(t_table *table)
 {
@@ -29,27 +48,11 @@ t_philo	*ft_init_philo(t_table *table)
 		philo[i].last_eating_time = 0;
 		philo[i].eaten_lock = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
 		philo[i].eating_time_lock = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
-		philo[i].left_fork = &table->forks[i];
-		philo[i].right_fork = &table->forks[(i + 1) % table->nb_philo];
-		if (i == 0)
-		{
-			philo[i].right_fork = &table->forks[i];
-			philo[i].left_fork = &table->forks[(i + 1) % table->nb_philo];
-		}
+		set_forks(table, philo, i);
 		philo[i].table = table;
 		i++;
 	}
 	return (philo);
-}
-
-void *ft_1_philo(void *philosopher)
-{
-	t_philo *philo;
-
-	philo = (t_philo *)philosopher;
-	ft_print_routine(philo, "is thinking");
-	ft_print_routine(philo, "has taken a fork");
-	return (NULL);
 }
 
 int	ft_create_thread(t_table *table)
@@ -59,12 +62,6 @@ int	ft_create_thread(t_table *table)
 	i = 0;
 	if (!table)
 		return (-1);
-	if (table->nb_philo == 1)
-	{
-		if (pthread_create(&table->philos[i].thread, NULL, &ft_1_philo, &table->philos[i]) != 0)
-			return (-1);
-		return (0);
-	}
 	while (i < table->nb_philo)
 	{
 		if (pthread_create(&table->philos[i].thread, NULL,
@@ -77,5 +74,9 @@ int	ft_create_thread(t_table *table)
 		}
 		i++;
 	}
+	pthread_mutex_lock(&table->threads_ready_lock);
+	table->start_time = ft_time_interval(table);
+	table->threads_ready = 1;
+	pthread_mutex_unlock(&table->threads_ready_lock);
 	return (0);
 }

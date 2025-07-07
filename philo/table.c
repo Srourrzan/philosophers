@@ -6,7 +6,7 @@
 /*   By: rsrour <rsrour@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 16:01:37 by rsrour            #+#    #+#             */
-/*   Updated: 2025/07/06 23:59:52 by rsrour           ###   ########.fr       */
+/*   Updated: 2025/07/07 13:46:11 by rsrour           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,14 @@ int	ft_init_table(t_table *table, int argc, char **argv)
 		return (ft_indicate_error("Error: Invalid arguments provided"));
 	table->print_lock = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
 	table->status_lock = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+	table->threads_ready_lock = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
 	table->status = 1;
+	table->threads_ready = 0;
 	if (ft_init_locks(table))
 		return (1);
 	table->philos = ft_init_philo(table);
 	if (!table->philos)
 		return (ft_indicate_error(ALLOCATE_FAILED"philosophers"));
 	table->start_time = 0;
-	table->start_time = ft_time_interval(table);
 	return (0);
 }
